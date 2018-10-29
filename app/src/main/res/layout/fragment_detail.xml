@@ -1,0 +1,132 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.text.Editable" />
+
+        <import type="android.view.View" />
+
+        <import type="android.databinding.ObservableBoolean" />
+
+        <variable
+            name="viewmodel"
+            type="com.rayworks.albumpresentationmodel.AlbumDetailViewModel" />
+    </data>
+
+    <ScrollView xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        tools:context="com.rayworks.ui.DetailFragment">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/artist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:paddingStart="24dp"
+                android:text="@string/artist"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/editor_artist"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:afterTextChanged="@{s -> viewmodel.updateArtist(s.toString())}"
+                android:text="@{viewmodel.album.artist}"
+                app:layout_constraintBottom_toBottomOf="@id/artist"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/artist"
+                app:layout_constraintTop_toTopOf="@id/artist" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/title"
+                app:layout_constraintEnd_toEndOf="@id/artist"
+                app:layout_constraintTop_toBottomOf="@id/editor_artist" />
+
+            <EditText
+                android:id="@+id/editor_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:afterTextChanged="@{s -> viewmodel.updateTitle(s.toString())}"
+                android:text="@{viewmodel.album.title}"
+                app:layout_constraintBottom_toBottomOf="@id/title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/title"
+                app:layout_constraintTop_toBottomOf="@id/editor_artist" />
+
+            <CheckBox
+                android:id="@+id/checkbox_classical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:checked="@{viewmodel.album.classical}"
+                android:onCheckedChanged="@{(buttonView, isChecked)->viewmodel.updateIsClassical(isChecked)}"
+                android:text="@string/classical"
+                app:layout_constraintStart_toStartOf="@id/editor_title"
+                app:layout_constraintTop_toBottomOf="@id/editor_title" />
+
+            <TextView
+                android:id="@+id/composer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/composer"
+                app:layout_constraintEnd_toEndOf="@id/artist"
+                app:layout_constraintTop_toBottomOf="@id/checkbox_classical" />
+
+            <EditText
+                android:id="@+id/editor_composer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:afterTextChanged="@{s -> viewmodel.updateComposer(s.toString())}"
+                android:text="@{viewmodel.album.composer}"
+                app:layout_constraintBottom_toBottomOf="@id/composer"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/composer"
+                app:layout_constraintTop_toBottomOf="@id/checkbox_classical" />
+
+            <Button
+                android:id="@+id/apply"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:enabled="@{viewmodel.appliable.get()}"
+                android:onClick="@{(v) -> viewmodel.applyChanges()}"
+                android:text="@string/apply"
+                app:layout_constraintStart_toStartOf="@id/editor_composer"
+                app:layout_constraintTop_toBottomOf="@id/editor_composer" />
+
+            <Button
+                android:id="@+id/cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:enabled="@{viewmodel.cancellable.get()}"
+                android:onClick="@{(v)-> viewmodel.cancelChanges()}"
+                android:text="@string/cancel"
+                app:layout_constraintStart_toEndOf="@id/apply"
+                app:layout_constraintTop_toBottomOf="@id/editor_composer" />
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+</layout>

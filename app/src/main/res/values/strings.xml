@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">AlbumPresentationModel</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="artist">Artist</string>
+    <string name="title">Title</string>
+    <string name="classical">Classical</string>
+    <string name="composer">Composer</string>
+    <string name="apply">Apply</string>
+    <string name="cancel">Cancel</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="change_confirmed_msg">Do you want to abandon your changes?</string>
+    <string name="confirm_action">Confirm action</string>
+</resources>
